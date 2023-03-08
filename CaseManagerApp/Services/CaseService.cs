@@ -46,10 +46,11 @@ public static class CaseService
         await _context.SaveChangesAsync();
     }
 
-    
+
+
     public static async Task<IEnumerable<CaseModel>> GetAllAsync()
     {
-       /*var cases = new List<CaseModel>();*/
+        var cases = new List<CaseModel>();
 
         foreach (var x in await _context.Cases.Include(y => y.Tenant).ToListAsync())
             cases.Add(new CaseModel
@@ -62,10 +63,13 @@ public static class CaseService
                 Email = x.Tenant.Email,
                 PhoneNumber = x.Tenant.PhoneNumber
             });
+
         return cases;
 
 
     }
+
+
 
 
 }

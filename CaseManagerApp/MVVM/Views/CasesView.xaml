@@ -35,7 +35,7 @@
                        Margin="10"/>
         <ListView Grid.Row="1" ItemsSource="{Binding CasesList}">
             <ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:CaseEntity}">
+                <DataTemplate DataType="{x:Type models:CaseModel}">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

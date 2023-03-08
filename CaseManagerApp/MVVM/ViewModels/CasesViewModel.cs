@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-
+using System.Threading.Tasks;
 
 namespace CaseManagerApp.MVVM.ViewModels;
 
@@ -19,10 +19,17 @@ public partial class CasesViewModel : ObservableObject
 
     /* 
 
-Error	CS0029	Cannot implicitly convert type 'System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<CaseManagerApp.MVVM.Models.CaseModel>>' to 'System.Collections.ObjectModel.ObservableCollection<CaseManagerApp.MVVM.Models.CaseModel>'e
+Error	CS0029	Cannot implicitly convert type 'System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<CaseManagerApp.MVVM.Models.CaseModel>>' to 'System.Collections.ObjectModel.ObservableCollection<CaseManagerApp.MVVM.Models.CaseModel>'
      */
+
     [ObservableProperty]
-    private ObservableCollection<CaseModel> casesList = CaseService.GetAllAsync();
+    private ObservableCollection<CaseModel> casesList = null!;
+
+    private async Task LoadCasesAsync()
+    {
+        var cases = await CaseService.GetAllAsync();
+        CasesList = new ObservableCollection<CaseModel>(cases);
+    }
 
 
 }
