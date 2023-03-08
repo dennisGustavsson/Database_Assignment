@@ -16,8 +16,13 @@ public partial class CasesViewModel : ObservableObject
 
 
 
-/*    [ObservableProperty]
-    private ObservableCollection<CaseModel> casesList = CaseService.GetAllAsync();*/
+
+    /* 
+
+Error	CS0029	Cannot implicitly convert type 'System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<CaseManagerApp.MVVM.Models.CaseModel>>' to 'System.Collections.ObjectModel.ObservableCollection<CaseManagerApp.MVVM.Models.CaseModel>'e
+     */
+    [ObservableProperty]
+    private ObservableCollection<CaseModel> casesList = CaseService.GetAllAsync();
 
 
 }

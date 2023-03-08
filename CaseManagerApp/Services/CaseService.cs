@@ -21,6 +21,9 @@ public static class CaseService
 
     private static DataContext _context = new DataContext();
 
+    private static ObservableCollection<CaseModel> cases;
+
+
     public static async Task SaveAsync(CaseModel caseModel)
     {
         var caseEntity = new CaseEntity
@@ -46,7 +49,7 @@ public static class CaseService
     
     public static async Task<IEnumerable<CaseModel>> GetAllAsync()
     {
-       var cases = new List<CaseModel>();
+       /*var cases = new List<CaseModel>();*/
 
         foreach (var x in await _context.Cases.Include(y => y.Tenant).ToListAsync())
             cases.Add(new CaseModel
