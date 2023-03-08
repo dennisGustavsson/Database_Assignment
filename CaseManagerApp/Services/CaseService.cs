@@ -2,6 +2,7 @@
 using CaseManagerApp.MVVM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -68,8 +69,6 @@ public static class CaseService
 
 
     }
-
-
 
 
 }
