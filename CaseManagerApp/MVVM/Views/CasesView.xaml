@@ -33,7 +33,7 @@
                    Grid.Column="1"
                        Padding="5"
                        Margin="10"/>
-        <ListView Grid.Row="1" ItemsSource="{Binding CasesList}">
+        <ListView Grid.Row="1" ItemsSource="{Binding CaseList}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:CaseModel}">
                     <Grid Margin="5">
