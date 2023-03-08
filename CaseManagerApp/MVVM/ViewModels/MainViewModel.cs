@@ -15,11 +15,20 @@ public partial class MainViewModel : ObservableObject
     private ObservableObject currentViewModel;
 
 
-    public MainViewModel() => CurrentViewModel = new CasesViewModel();
+    public MainViewModel()
+    {
+        CurrentViewModel = new CasesViewModel();
+    }
 
     [RelayCommand]
-    private void GoToAddCase() => CurrentViewModel = new AddCaseViewModel();
+    private void GoToAddCase()
+    {
+        CurrentViewModel = new AddCaseViewModel();
+    }
 
     [RelayCommand]
-    private void GoToCases() => CurrentViewModel = new CasesViewModel();
+    private void GoToCases()
+    {
+        CurrentViewModel = new CasesViewModel();
+    }
 }

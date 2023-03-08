@@ -15,20 +15,30 @@ namespace CaseManagerApp.MVVM.ViewModels;
 public partial class CasesViewModel : ObservableObject
 {
 
+
+
     [ObservableProperty]
     private string title = "Cases";
 
-    [ObservableProperty]
-    private ObservableCollection<CaseModel> caseList = new ObservableCollection<CaseModel>();
+    private ObservableCollection<CaseModel> caseList;
 
-public async Task LoadMyData(CaseModel caseModel)
+
+    public CasesViewModel()
     {
-        CaseList = (ObservableCollection<CaseModel>)await CaseService.GetAllAsync();
+        LoadAllCasesAsync();
     }
 
+    public async Task LoadAllCasesAsync()
+    {
+        IEnumerable<CaseModel> cases = await CaseService.GetAllAsync();
+        CaseList = new ObservableCollection<CaseModel>(cases);
+    }
 
-
-
+    public ObservableCollection<CaseModel> CaseList
+    {
+        get { return caseList; }
+        set { SetProperty(ref caseList, value); }
+    }
 
 
 }
