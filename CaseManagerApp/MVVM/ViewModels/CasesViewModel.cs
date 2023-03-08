@@ -17,7 +17,7 @@ public partial class CasesViewModel : ObservableObject
 
 
     [ObservableProperty]
-    private ObservableCollection<CaseModel> caseList = CaseService.CasesList;
+    private ObservableCollection<CaseModel> caseList = CaseService.GetAllAsync();
 
 
 
