@@ -56,6 +56,7 @@ public static class CaseService
         foreach (var x in await _context.Cases.Include(y => y.Tenant).ToListAsync())
             cases.Add(new CaseModel
             {
+                CaseId = x.CaseId,
                 Description = x.Description,
                 Created = x.Created,
                 Status = x.Status,

@@ -20,6 +20,10 @@ public partial class CasesViewModel : ObservableObject
     [ObservableProperty]
     private string title = "Cases";
 
+    [ObservableProperty]
+    private CaseModel selectedCase = null!;
+
+
     private ObservableCollection<CaseModel> caseList;
 
 
