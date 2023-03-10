@@ -25,5 +25,7 @@ namespace CaseManagerApp.MVVM.Models
         public string Email { get; set; } = null!;
 
         public string PhoneNumber { get; set; } = null!;
+
+        public List<string> Comments { get; set; } = null!;
     }
 }
