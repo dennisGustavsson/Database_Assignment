@@ -2,6 +2,7 @@
 using CaseManagerApp.MVVM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +18,6 @@ public static class CaseService
     }
 
     private static DataContext _context = new DataContext();
-
-
 
 
     public static async Task SaveAsync(CaseModel caseModel)
@@ -45,37 +44,41 @@ public static class CaseService
             };
         }
 
-
-
-
         _context.Add(_caseEntity);
         await _context.SaveChangesAsync();
     }
 
-    public static async Task AddCommentAsync(CaseModel caseModel)
+
+    public static async Task AddCommentAsync(CaseCommentEntity caseComment)
     {
 
-        var _commentEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseId == caseModel.CaseId);
-
-            if(_commentEntity != null)
-        {
-            _commentEntity.CaseId = caseModel.CaseId;
-
-            var comment = new CaseCommentEntity
-            {
-                Text = "something"
-            };
-            
-            _context.Add(comment);
-            await _context.SaveChangesAsync();
-        }
 
 
-
-
-
-
+            _context.Add(caseComment);
+            _context.SaveChanges();
+        
     }
+
+
+    /*    public static async Task AddCommentAsync(CaseModel caseModel)
+        {
+
+            var _commentEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseId == caseModel.CaseId);
+
+                if(_commentEntity != null)
+            {
+                _commentEntity.CaseId = caseModel.CaseId;
+
+                var comment = new CaseCommentEntity
+                {
+                    Text = "Exempel"
+                };
+
+                _context.Add(comment);
+                await _context.SaveChangesAsync();
+            }
+
+        }*/
 
 
 

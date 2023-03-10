@@ -88,13 +88,19 @@
                         Padding="5"
                         Margin="10"/>
 
-                <TextBlock Text="{Binding SelectedCase.Status}"
+                <ComboBox 
+                        SelectedIndex="{Binding SelectedCase.Status}"
+                        DisplayMemberPath="Status"
+                        Width="100"
                         Grid.Row="0"
                         Grid.Column="1"
                         Padding="5"
-                        Margin="10"/>
+                        Margin="10"
+                         />
 
-                <ListView Grid.Row="1" ItemsSource="{Binding SelectedCase.Comments}">
+                <ListView Grid.Row="1" ItemsSource="{Binding SelectedCase.Comments}"
+                          Width="200"
+                          HorizontalAlignment="Right">
                     <ListView.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:CaseCommentEntity}">
                             <Grid Margin="5">
@@ -112,6 +118,19 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <TextBox
+                        Text="{Binding Comment}"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Padding="5"
+                        Margin="10"
+                        Width="200"
+                        HorizontalAlignment="Left"/>
+                <Button Content="Add Comment" 
+                        Command="{Binding AddCommentCommand}"
+                        HorizontalAlignment="Left"
+                        Width="100"
+                        Margin="10 0 0 0"/>
             </StackPanel>
 
 

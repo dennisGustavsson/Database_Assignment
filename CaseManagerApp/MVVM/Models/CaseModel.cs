@@ -26,6 +26,6 @@ namespace CaseManagerApp.MVVM.Models
 
         public string PhoneNumber { get; set; } = null!;
 
-        public List<string> Comments { get; set; } = null!;
+        public List<CaseCommentEntity>? Comments { get; set; } = new List<CaseCommentEntity>();
     }
 }

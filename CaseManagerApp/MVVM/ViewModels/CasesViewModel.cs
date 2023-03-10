@@ -24,12 +24,11 @@ public partial class CasesViewModel : ObservableObject
     private CaseModel selectedCase = null!;
 
 
-    private ObservableCollection<CaseModel> caseList;
-
+    private ObservableCollection<CaseModel> caseList = null!;
 
     public CasesViewModel()
     {
-        LoadAllCasesAsync();
+        _ = LoadAllCasesAsync();
     }
 
     public async Task LoadAllCasesAsync()
@@ -42,6 +41,24 @@ public partial class CasesViewModel : ObservableObject
     {
         get { return caseList; }
         set { SetProperty(ref caseList, value); }
+    }
+
+
+    [ObservableProperty]
+    private string? comment;
+
+    [RelayCommand]
+    private async Task AddComment()
+    {
+        var caseId = selectedCase.CaseId;
+
+        await CaseService.AddCommentAsync(new CaseCommentEntity
+        {
+            CaseId = caseId,
+            Text = comment
+        });
+
+        Comment = string.Empty;
     }
 
 
