@@ -51,35 +51,10 @@ public static class CaseService
 
     public static async Task AddCommentAsync(CaseCommentEntity caseComment)
     {
-
-
-
             _context.Add(caseComment);
             _context.SaveChanges();
         
     }
-
-
-    /*    public static async Task AddCommentAsync(CaseModel caseModel)
-        {
-
-            var _commentEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseId == caseModel.CaseId);
-
-                if(_commentEntity != null)
-            {
-                _commentEntity.CaseId = caseModel.CaseId;
-
-                var comment = new CaseCommentEntity
-                {
-                    Text = "Exempel"
-                };
-
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-            }
-
-        }*/
-
 
 
     /*    public static async Task<IEnumerable<CaseModel>> GetAllAsync()
@@ -117,7 +92,8 @@ public static class CaseService
                 FirstName = x.Tenant.FirstName,
                 LastName = x.Tenant.LastName,
                 Email = x.Tenant.Email,
-                PhoneNumber = x.Tenant.PhoneNumber
+                PhoneNumber = x.Tenant.PhoneNumber,
+                Comments = x.Comments.ToList<CaseCommentEntity>()
             })
             .ToListAsync();
     }

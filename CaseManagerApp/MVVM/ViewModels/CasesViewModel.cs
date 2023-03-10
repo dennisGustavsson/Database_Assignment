@@ -2,10 +2,6 @@
 using CaseManagerApp.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -56,6 +52,11 @@ public partial class CasesViewModel : ObservableObject
         {
             CaseId = caseId,
             Text = comment
+        });
+
+        selectedCase.Comments?.Add(new CaseCommentEntity
+        {
+            Text = comment,
         });
 
         Comment = string.Empty;

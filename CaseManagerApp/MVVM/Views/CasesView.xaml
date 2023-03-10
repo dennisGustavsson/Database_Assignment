@@ -110,8 +110,8 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <TextBlock HorizontalAlignment="Stretch">
-
-                                <Run Text="{Binding Text}" FontStyle="Italic" FontSize="11"/>
+                                        <Run Text="{Binding Text}" FontStyle="Italic" FontSize="10"/>
+                                        <Run Text="{Binding Posted}" FontStyle="Italic" FontSize="10"/>
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>
