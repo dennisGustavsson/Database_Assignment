@@ -34,13 +34,22 @@ public static class CaseService
             Status = caseModel.Status
         };
 
-        caseEntity.Tenant = new TenantEntity
+        var _tenantEntity = await _context.Tenants.FirstOrDefaultAsync(t => t.Email == caseModel.Email);
+        if(_tenantEntity != null) 
+        { 
+            caseEntity.TenantId = _tenantEntity.TenantId;
+        } else
         {
-            FirstName = caseModel.FirstName,
-            LastName = caseModel.LastName,
-            Email = caseModel.Email,
-            PhoneNumber = caseModel.PhoneNumber
-        };
+            caseEntity.Tenant = new TenantEntity
+            {
+                FirstName = caseModel.FirstName,
+                LastName = caseModel.LastName,
+                Email = caseModel.Email,
+                PhoneNumber = caseModel.PhoneNumber
+            };
+        }
+
+
 
 
         _context.Add(caseEntity);
@@ -69,6 +78,11 @@ public static class CaseService
         return cases;
 
 
+    }
+
+    public static Task<CaseModel> UpdateAsync()
+    {
+        return null!;
     }
 
 

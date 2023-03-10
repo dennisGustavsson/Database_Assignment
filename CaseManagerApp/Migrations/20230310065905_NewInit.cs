@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CaseManagerApp.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class NewInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,15 +49,50 @@ namespace CaseManagerApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CaseComments",
+                columns: table => new
+                {
+                    CaseCommentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Posted = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CaseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaseComments", x => x.CaseCommentId);
+                    table.ForeignKey(
+                        name: "FK_CaseComments_Cases_CaseId",
+                        column: x => x.CaseId,
+                        principalTable: "Cases",
+                        principalColumn: "CaseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseComments_CaseId",
+                table: "CaseComments",
+                column: "CaseId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cases_TenantId",
                 table: "Cases",
                 column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_Email",
+                table: "Tenants",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CaseComments");
+
             migrationBuilder.DropTable(
                 name: "Cases");
 

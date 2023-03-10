@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CaseManagerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230306155356_initDb")]
-    partial class initDb
+    [Migration("20230310065905_NewInit")]
+    partial class NewInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,31 @@ namespace CaseManagerApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseCommentEntity", b =>
+                {
+                    b.Property<int>("CaseCommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CaseCommentId"));
+
+                    b.Property<int>("CaseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Posted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CaseCommentId");
+
+                    b.HasIndex("CaseId");
+
+                    b.ToTable("CaseComments");
+                });
 
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseEntity", b =>
                 {
@@ -80,7 +105,21 @@ namespace CaseManagerApp.Migrations
 
                     b.HasKey("TenantId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Tenants");
+                });
+
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseCommentEntity", b =>
+                {
+                    b.HasOne("CaseManagerApp.MVVM.Models.CaseEntity", "Case")
+                        .WithMany("Comments")
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Case");
                 });
 
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseEntity", b =>
@@ -92,6 +131,11 @@ namespace CaseManagerApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseEntity", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.TenantEntity", b =>

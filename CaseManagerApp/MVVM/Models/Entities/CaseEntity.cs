@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -19,5 +19,7 @@ public class CaseEntity
     public int TenantId { get; set; }
 
     public TenantEntity Tenant { get; set; } = null!;
+
+    public ICollection<CaseCommentEntity>? Comments { get; set; }
 
 }
