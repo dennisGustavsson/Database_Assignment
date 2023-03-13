@@ -28,14 +28,21 @@ public partial class AddCaseViewModel : ObservableObject
     private string phoneNumber = null!;
 
     [ObservableProperty]
+    private string streetName = null!;
+
+    [ObservableProperty]
+    private string postalCode = null!;
+
+    [ObservableProperty]
+    private string city = null!;
+
+    [ObservableProperty]
     private string description = null!;
 
 
     [RelayCommand]
     private async Task AddCase()
     {
-
-
         await CaseService.SaveAsync(
             new CaseModel
             {
@@ -43,6 +50,9 @@ public partial class AddCaseViewModel : ObservableObject
                 LastName = lastName,
                 Email = email,
                 PhoneNumber = phoneNumber,
+                StreetName = streetName,
+                PostalCode = postalCode,
+                City = city,
                 Description = description
                 
             }
@@ -52,10 +62,10 @@ public partial class AddCaseViewModel : ObservableObject
         LastName = string.Empty;
         Email = string.Empty;
         PhoneNumber = string.Empty;
+        StreetName = string.Empty;
+        PostalCode = string.Empty;
+        City = string.Empty;
         Description = string.Empty;
-
-
-
     }
 }
 

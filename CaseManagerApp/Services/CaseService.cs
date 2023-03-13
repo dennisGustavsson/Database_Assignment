@@ -1,5 +1,6 @@
 ﻿using CaseManagerApp.Contexts;
 using CaseManagerApp.MVVM.Models;
+using CaseManagerApp.MVVM.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.CodeDom;
@@ -29,11 +30,59 @@ public static class CaseService
             Status = caseModel.Status
         };
 
+        var _addressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName == caseModel.StreetName && x.PostalCode == caseModel.PostalCode && x.City == caseModel.City);
         var _tenantEntity = await _context.Tenants.FirstOrDefaultAsync(t => t.Email == caseModel.Email);
-        if(_tenantEntity != null) 
-        { 
+
+        if (_addressEntity == null)
+        {
+            _addressEntity = new AddressEntity
+            {
+                StreetName = caseModel.StreetName,
+                PostalCode = caseModel.PostalCode,
+                City = caseModel.City
+            };
+            _context.Add(_addressEntity);
+            await _context.SaveChangesAsync();
+        }
+
+        if (_tenantEntity != null)
+        {
             _caseEntity.TenantId = _tenantEntity.TenantId;
-        } else
+            _tenantEntity.AddressId = _addressEntity.Id;
+        }
+        else
+        {
+            _caseEntity.Tenant = new TenantEntity
+            {
+                FirstName = caseModel.FirstName,
+                LastName = caseModel.LastName,
+                Email = caseModel.Email,
+                PhoneNumber = caseModel.PhoneNumber,
+                AddressId = _addressEntity.Id
+            };
+        }
+
+        _context.Add(_caseEntity);
+        await _context.SaveChangesAsync();
+      
+    }
+
+    // BACKUP METHOD
+/*    public static async Task SaveAsync(CaseModel caseModel)
+    {
+        var _caseEntity = new CaseEntity
+        {
+            Description = caseModel.Description,
+            Created = caseModel.Created,
+            Status = caseModel.Status
+        };
+
+        var _tenantEntity = await _context.Tenants.FirstOrDefaultAsync(t => t.Email == caseModel.Email);
+        if (_tenantEntity != null)
+        {
+            _caseEntity.TenantId = _tenantEntity.TenantId;
+        }
+        else
         {
             _caseEntity.Tenant = new TenantEntity
             {
@@ -46,7 +95,7 @@ public static class CaseService
 
         _context.Add(_caseEntity);
         await _context.SaveChangesAsync();
-    }
+    }*/
 
 
     public static async Task AddCommentAsync(CaseCommentEntity caseComment)

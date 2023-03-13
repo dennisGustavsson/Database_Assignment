@@ -12,6 +12,21 @@ namespace CaseManagerApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StreetName = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    PostalCode = table.Column<string>(type: "char(6)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tenants",
                 columns: table => new
                 {
@@ -20,11 +35,18 @@ namespace CaseManagerApp.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "char(13)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "char(13)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenants", x => x.TenantId);
+                    table.ForeignKey(
+                        name: "FK_Tenants_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +103,11 @@ namespace CaseManagerApp.Migrations
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tenants_AddressId",
+                table: "Tenants",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tenants_Email",
                 table: "Tenants",
                 column: "Email",
@@ -98,6 +125,9 @@ namespace CaseManagerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tenants");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }

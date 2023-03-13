@@ -20,6 +20,7 @@ public class CaseEntity
 
     public TenantEntity Tenant { get; set; } = null!;
 
-    public ICollection<CaseCommentEntity>? Comments { get; set; }
+
+    public ICollection<CaseCommentEntity> Comments { get; set; } = new List<CaseCommentEntity>();
 
 }

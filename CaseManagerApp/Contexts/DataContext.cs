@@ -1,6 +1,7 @@
 ﻿
 
 using CaseManagerApp.MVVM.Models;
+using CaseManagerApp.MVVM.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -30,17 +31,13 @@ internal class DataContext : DbContext
 
     public DbSet<TenantEntity> Tenants { get; set; } = null!;
 
+    public DbSet<AddressEntity> Addresses { get; set; } = null!;
+
     public DbSet<CaseEntity> Cases { get; set; } = null!;
 
     public DbSet<CaseCommentEntity> CaseComments { get; set; } = null!;
 
-    /*    public DbSet<PropertyEntity> Properties { get; set; } = null!;*/
 
-    /*    public DbSet<PropertyManagerEntity> PropertyManagers { get; set; } = null!;*/
-
-
-
-    /*    public DbSet<CaseCommentEntity> CaseComments { get; set; } = null!;*/
 
 
 }

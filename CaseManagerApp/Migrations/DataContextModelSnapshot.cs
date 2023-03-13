@@ -76,6 +76,31 @@ namespace CaseManagerApp.Migrations
                     b.ToTable("Cases");
                 });
 
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.Entities.AddressEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("char(6)");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.TenantEntity", b =>
                 {
                     b.Property<int>("TenantId")
@@ -83,6 +108,9 @@ namespace CaseManagerApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TenantId"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -101,6 +129,8 @@ namespace CaseManagerApp.Migrations
                         .HasColumnType("char(13)");
 
                     b.HasKey("TenantId");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -130,9 +160,25 @@ namespace CaseManagerApp.Migrations
                     b.Navigation("Tenant");
                 });
 
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.TenantEntity", b =>
+                {
+                    b.HasOne("CaseManagerApp.MVVM.Models.Entities.AddressEntity", "Address")
+                        .WithMany("Tenants")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.CaseEntity", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("CaseManagerApp.MVVM.Models.Entities.AddressEntity", b =>
+                {
+                    b.Navigation("Tenants");
                 });
 
             modelBuilder.Entity("CaseManagerApp.MVVM.Models.TenantEntity", b =>

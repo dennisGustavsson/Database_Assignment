@@ -26,7 +26,12 @@
                    Grid.Row="0"
                        Padding="5"
                        Margin="10"/>
-        
+        <TextBlock Text="Case Id:"
+                    FontSize="10"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="5"
+                    Margin="10"/>
         <TextBlock Text="{Binding SelectedCase.CaseId}"
                        FontSize="20"
                    Grid.Row="0"

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CaseManagerApp.MVVM.Models
+
+namespace CaseManagerApp.MVVM.Models.Entities
 {
-    public class PropertyEntity
+    public class AddressEntity
     {
         [Key]
-        public int PropertyId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(50)")]
@@ -21,8 +23,6 @@ namespace CaseManagerApp.MVVM.Models
         [Column(TypeName = "nvarchar(50)")]
         public string City { get; set; } = null!;
 
-        public int PropertyManagerId { get; set; }
-        public PropertyManagerEntity PropertyManager { get; set; } = null!;
 
         public ICollection<TenantEntity> Tenants { get; set; } = new HashSet<TenantEntity>();
     }

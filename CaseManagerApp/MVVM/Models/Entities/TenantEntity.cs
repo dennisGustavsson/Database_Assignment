@@ -1,4 +1,5 @@
 ﻿
+using CaseManagerApp.MVVM.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,10 @@ public class TenantEntity
     [Column(TypeName = "char(13)")]
     public string PhoneNumber { get; set; } = null!;
 
-    public ICollection<CaseEntity> Cases { get; set; } = null!;
+    public int AddressId { get; set; }
+    public AddressEntity Address { get; set; } = null!;
+
+    public ICollection<CaseEntity> Cases { get; set; } = new HashSet<CaseEntity>();
 
 
 }

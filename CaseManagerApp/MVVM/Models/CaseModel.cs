@@ -26,6 +26,12 @@ namespace CaseManagerApp.MVVM.Models
 
         public string PhoneNumber { get; set; } = null!;
 
+        public string StreetName { get; set; } = null!;
+
+        public string PostalCode { get; set; } = null!;
+
+        public string City { get; set; } = null!;
+
         public ICollection<CaseCommentEntity>? Comments { get; set; } = new List<CaseCommentEntity>();
     }
 }

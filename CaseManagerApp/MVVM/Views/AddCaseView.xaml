@@ -29,6 +29,15 @@
             <TextBlock Text="Phone:" />
             <TextBox Text="{Binding PhoneNumber}" Padding="2 5 2 5" Margin="0 3"/>
 
+            <TextBlock Text="Street name:" />
+            <TextBox Text="{Binding StreetName}" Padding="2 5 2 5" Margin="0 3"/>
+
+            <TextBlock Text="Postal code:" />
+            <TextBox Text="{Binding PostalCode}" Padding="2 5 2 5" Margin="0 3"/>
+
+            <TextBlock Text="City:" />
+            <TextBox Text="{Binding City}" Padding="2 5 2 5" Margin="0 3"/>
+
             <TextBlock Text="Description:" />
             <TextBox Text="{Binding Description}" Padding="2 5 2 5" Margin="0 3"/>
 
